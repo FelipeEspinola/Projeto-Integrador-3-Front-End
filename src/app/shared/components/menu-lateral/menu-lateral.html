@@ -1,0 +1,70 @@
+<div class="menu">
+
+  <div 
+    class="menu-item"
+    [class.active]="isActive('ofertas')"
+    (click)="navegar('/ofertas')"
+  >
+    <img src="assets/imagens/ofertas.png">
+    <span>Ofertas</span>
+  </div>
+
+  <div 
+    class="menu-item"
+    [class.active]="isActive('carnes')"
+    (click)="navegar('/carnes')"
+  >
+    <img src="assets/imagens/carne.png">
+    <span>Carnes</span>
+  </div>
+
+  <div 
+    class="menu-item"
+    [class.active]="isActive('frango')"
+    (click)="navegar('/frango')"
+  >
+    <img src="assets/imagens/frango.png">
+    <span>Frango</span>
+  </div>
+
+  <div 
+    class="menu-item"
+    [class.active]="isActive('acompanhamentos')"
+    (click)="navegar('/acompanhamentos')"
+  >
+    <img src="assets/imagens/batata.png">
+    <span>Para Acompanhar</span>
+  </div>
+
+  <div 
+    class="menu-item"
+    [class.active]="isActive('sobremesas')"
+    (click)="navegar('/sobremesas')"
+  >
+    <img src="assets/imagens/sobremesa.png">
+    <span>Sobremesa</span>
+  </div>
+
+  <div 
+    class="menu-item"
+    [class.active]="isActive('bebidas')"
+    (click)="navegar('/bebidas')"
+  >
+    <img src="assets/imagens/bebida.png">
+    <span>Bebidas</span>
+  </div>
+
+  <!-- BOTÕES -->
+  <div class="acoes">
+
+    <button class="btn-voltar" (click)="navegar('/')">
+      ← Voltar
+    </button>
+
+    <button class="btn-cancelar">
+      ✖ Cancelar Pedido
+    </button>
+
+  </div>
+
+</div>

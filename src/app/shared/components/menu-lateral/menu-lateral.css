@@ -1,0 +1,70 @@
+.menu {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ITEM */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+
+  background-color: #F7F9D6;
+  transition: 0.3s;
+  border: 2px solid transparent;
+}
+
+/* ATIVO */
+.menu-item.active {
+  background-color: #F5800D;
+  color: white;
+  font-weight: bold;
+}
+
+/* HOVER */
+.menu-item:hover {
+  transform: scale(1.03);
+}
+
+/* IMG */
+.menu-item img {
+  width: 40px;
+}
+
+/* TEXTO */
+.menu-item span {
+  font-size: 18px;
+}
+
+/* AÇÕES */
+.acoes {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* BOTÕES */
+.btn-voltar,
+.btn-cancelar {
+  padding: 12px;
+  border-radius: 25px;
+  border: 2px solid #F5800D;
+  background: white;
+  color: #F5800D;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-voltar:hover,
+.btn-cancelar:hover {
+  background-color: #F5800D;
+  color: white;
+}

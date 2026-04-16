@@ -1,0 +1,58 @@
+.layout {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+}
+
+.conteudo {
+  flex: 1;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+/* CARD */
+.card {
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #fff;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+/* IMG */
+.card img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+/* LINHA */
+.linha {
+  height: 2px;
+  background: #000;
+  margin: 10px 0;
+}
+
+/* PREÇO */
+.preco {
+  text-align: right;
+  font-size: 14px;
+}
+
+.preco strong {
+  font-size: 18px;
+}

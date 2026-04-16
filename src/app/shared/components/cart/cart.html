@@ -1,0 +1,23 @@
+<div class="cart">
+
+  <h2>🛍️ Sacola</h2>
+
+  <div *ngFor="let item of cart.itens" class="item">
+
+    <span>{{ item.nome }}</span>
+
+    <div class="controle">
+      <button (click)="cart.diminuir(item)">-</button>
+      <span>{{ item.qtd }}</span>
+      <button (click)="cart.aumentar(item)">+</button>
+    </div>
+
+    <strong>R$ {{ item.preco * item.qtd }}</strong>
+
+  </div>
+
+  <div class="total">
+    Total: <strong>R$ {{ cart.total() }}</strong>
+  </div>
+
+</div>

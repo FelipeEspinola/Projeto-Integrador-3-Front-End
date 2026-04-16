@@ -1,0 +1,32 @@
+<div class="layout">
+
+  <!-- MENU LATERAL -->
+  <app-menu-lateral></app-menu-lateral>
+
+  <!-- CONTEÚDO -->
+  <div class="conteudo">
+
+    <h1>{{ categoria | titlecase }}</h1>
+
+    <div class="grid">
+
+      <div class="card" *ngFor="let p of produtos" (click)="adicionar(p)">
+
+        <img [src]="'assets/imagens/' + p.img">
+
+        <h3>{{ p.nome }}</h3>
+
+        <div class="linha"></div>
+
+        <div class="preco">
+          <span>a partir</span>
+          <strong>R$ {{ p.preco }}</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
