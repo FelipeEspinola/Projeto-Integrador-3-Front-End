@@ -1,0 +1,14 @@
+<div class="menu">
+
+  <div
+    *ngFor="let cat of categorias"
+    (click)="selecionar(cat.id)"
+    [class.active]="cat.id === categoriaAtiva"
+    class="menu-item">
+
+    <img [src]="cat.icone">
+    <span>{{ cat.nome }}</span>
+
+  </div>
+
+</div>

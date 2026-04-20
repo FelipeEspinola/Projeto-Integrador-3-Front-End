@@ -1,0 +1,113 @@
+.custom-form {
+  background: #f2f2f2;
+  min-height: 100vh;
+}
+
+/* REMOVE CARA DE CARD */
+.form-card {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* TOPO */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 160px;
+}
+
+.btn-logout {
+  border: 3px solid #f57c00 !important;
+  color: #f57c00 !important;
+  border-radius: 30px !important;
+}
+
+/* INPUT CUSTOM */
+.custom-field .mat-mdc-text-field-wrapper {
+  border: 3px solid #f57c00 !important;
+  border-radius: 40px !important;
+  background: white !important;
+  padding: 5px 15px;
+}
+
+/* REMOVE BORDA PADRÃO */
+.mat-mdc-form-field-outline {
+  display: none !important;
+}
+
+/* LABEL */
+.mat-mdc-floating-label {
+  color: #f57c00 !important;
+  font-weight: bold;
+}
+
+/* DESCRIÇÃO GRANDE */
+.descricao textarea {
+  min-height: 120px;
+}
+
+/* LINHA DUPLA */
+.linha-dupla {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.pequeno {
+  width: 50%;
+}
+
+/* CHECKBOX ESTILO */
+.check-box {
+  border: 3px solid #f57c00;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f57c00;
+  font-weight: bold;
+}
+
+/* PREVIEW */
+.preview {
+  margin-top: 20px;
+}
+
+.preview img {
+  width: 140px;
+  border-radius: 10px;
+}
+
+/* BOTÕES */
+.botoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.btn-voltar,
+.btn-salvar {
+  border-radius: 30px !important;
+  padding: 10px 25px !important;
+  font-weight: bold;
+}
+
+/* LARANJA PADRÃO */
+.btn-voltar {
+  border: 3px solid #f57c00 !important;
+  color: #f57c00 !important;
+}
+
+.btn-salvar {
+  border: 3px solid #f57c00 !important;
+  background: transparent !important;
+  color: #f57c00 !important;
+}

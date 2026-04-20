@@ -1,0 +1,27 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px;
+  border-radius: 15px;
+  background-color: #F7F9D6;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.menu-item img {
+  width: 40px;
+}
+
+.menu-item.active {
+  background-color: #F5800D;
+  color: white;
+  border: none;
+}

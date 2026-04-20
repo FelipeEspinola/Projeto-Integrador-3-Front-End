@@ -1,0 +1,75 @@
+.custom-admin {
+  background: #f2f2f2;
+  min-height: 100vh;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LISTA */
+.lista {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* CARD */
+.card-produto {
+  display: flex;
+  gap: 20px;
+  border: 2px solid #f57c00;
+  border-radius: 20px;
+  padding: 15px;
+  background: white;
+  align-items: center;
+}
+
+/* IMAGEM */
+.card-produto img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* INFO */
+.info {
+  flex: 1;
+}
+
+.descricao {
+  color: #666;
+}
+
+/* PROMO */
+.promo {
+  color: red;
+  font-weight: bold;
+}
+
+/* STATUS */
+.ativo {
+  color: green;
+  font-weight: bold;
+}
+
+.inativo {
+  color: orange;
+  font-weight: bold;
+}
+
+.deletado {
+  color: red;
+  font-weight: bold;
+}
+
+/* AÇÕES */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

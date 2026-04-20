@@ -1,0 +1,26 @@
+.menu-container {
+  display: flex;
+  height: calc(100vh - 80px);
+  background-color: var(--bg);
+}
+
+/* MENU LATERAL */
+.menu-lateral {
+  width: 260px;
+  padding: 20px;
+}
+
+/* ÁREA PRODUTOS */
+.produtos-area {
+  flex: 1;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* GRID */
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}

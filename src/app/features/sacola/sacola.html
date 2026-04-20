@@ -1,0 +1,64 @@
+<div class="sacola-container">
+
+  <h1 class="titulo">🧺 Sacola</h1>
+
+  <!-- LISTA -->
+  <div *ngIf="itens.length > 0; else vazio">
+
+    <div class="item-card" *ngFor="let item of itens">
+
+      <!-- ESQUERDA -->
+      <div class="item-info">
+        <img [src]="item.imagem_url" class="produto-img">
+
+        <div>
+          <h3>{{ item.produtos_nome }}</h3>
+        </div>
+      </div>
+
+      <!-- DIREITA -->
+      <div class="item-acoes">
+
+        <span class="preco">R$ {{ item.preco }}</span>
+
+        <div class="quantidade">
+          <button class="btn-qtd" (click)="diminuir(item.produtos_id)">−</button>
+
+          <span class="qtd">{{ item.quantidade }}</span>
+
+          <button class="btn-qtd" (click)="aumentar(item.produtos_id)">+</button>
+        </div>
+
+        <button class="btn-delete" (click)="remover(item.produtos_id)">
+          🗑
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+
+      <button class="btn-voltar" routerLink="/menu">
+        ← Voltar
+      </button>
+
+      <button class="btn-cancelar" (click)="limpar()">
+        ✖ Cancelar Pedido
+      </button>
+
+      <button class="btn-pagar" routerLink="/pagamento">
+        💰 Pagar
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- VAZIO -->
+  <ng-template #vazio>
+    <p>Sua sacola está vazia 😢</p>
+  </ng-template>
+
+</div>

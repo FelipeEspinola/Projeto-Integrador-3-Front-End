@@ -1,0 +1,33 @@
+.card {
+  background: #F7F9D6;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #000;
+  width: 220px;
+  height: 260px;
+}
+
+.img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.nome {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.linha {
+  height: 2px;
+  background: black;
+  margin: 10px 0;
+}
+
+.preco span {
+  font-size: 12px;
+}
+
+.preco strong {
+  font-size: 16px;
+}

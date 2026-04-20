@@ -1,0 +1,51 @@
+<div class="container mt-5">
+
+  <h2 class="mb-4">💳 Pagamento</h2>
+ 
+  <mat-card class="p-4">
+
+    <h3 class="mb-3">Escolha a forma de pagamento:</h3>
+
+    <div class="d-flex flex-column gap-3">
+
+      <button
+        mat-stroked-button
+        [color]="metodoSelecionado === 'pix' ? 'primary' : ''"
+        (click)="selecionarMetodo('pix')">
+        PIX
+      </button>
+
+      <button
+        mat-stroked-button
+        [color]="metodoSelecionado === 'cartao' ? 'primary' : ''"
+        (click)="selecionarMetodo('cartao')">
+        Cartão
+      </button>
+
+      <button
+        mat-stroked-button
+        [color]="metodoSelecionado === 'dinheiro' ? 'primary' : ''"
+        (click)="selecionarMetodo('dinheiro')">
+        Dinheiro
+      </button>
+
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+
+      <button mat-stroked-button routerLink="/sacola">
+        Voltar
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="finalizarPedido()">
+        Finalizar Pedido
+      </button>
+
+    </div>
+
+  </mat-card>
+
+</div>

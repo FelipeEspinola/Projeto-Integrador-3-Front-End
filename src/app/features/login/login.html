@@ -1,0 +1,21 @@
+<div class="container mt-5">
+
+  <mat-card class="p-4">
+
+    <h2>Admin Login</h2>
+
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Usuário" [(ngModel)]="usuario">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <input matInput type="password" placeholder="Senha" [(ngModel)]="senha">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="entrar()">
+      Entrar
+    </button>
+
+  </mat-card>
+
+</div>

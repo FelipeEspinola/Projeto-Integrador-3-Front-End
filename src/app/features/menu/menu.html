@@ -1,0 +1,21 @@
+<app-header></app-header>
+
+<div class="menu-container">
+
+  <!-- MENU LATERAL (AQUI 👇) -->
+  <app-menu-lateral
+    class="menu-lateral"
+    (categoriaSelecionada)="trocarCategoria($event)">
+  </app-menu-lateral>
+
+  <!-- PRODUTOS -->
+  <div class="produtos-area">
+    <div class="produtos-grid">
+      <app-product-card
+        *ngFor="let produto of produtosFiltrados"
+        [produto]="produto">
+      </app-product-card>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,67 @@
+<div class="container mt-4 custom-admin">
+
+  <div class="topo">
+    <h2>Admin - Produtos</h2>
+
+    <div>
+      <button mat-raised-button color="primary" (click)="novo()">
+        Novo Produto
+      </button>
+
+      <button mat-stroked-button color="warn" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="lista">
+
+    <div class="card-produto" *ngFor="let p of produtos">
+
+      <!-- IMAGEM -->
+      <img [src]="p.imagem_url" alt="Produto">
+
+      <!-- INFO -->
+      <div class="info">
+
+        <h3>{{ p.produtos_nome }}</h3>
+
+        <p class="descricao">
+          {{ p.descricao }}
+        </p>
+
+        <p><strong>Preço:</strong> R$ {{ p.preco }}</p>
+
+        <p><strong>Categoria:</strong> {{ p.categoria_id }}</p>
+
+        <p>
+          <strong>Status:</strong>
+          <span [ngClass]="getStatusClass(p.status)">
+            {{ getStatusTexto(p.status) }}
+          </span>
+        </p>
+
+        <p *ngIf="p.promocao" class="promo">
+          🔥 Em promoção
+        </p>
+
+      </div>
+
+      <!-- AÇÕES -->
+      <div class="acoes">
+
+        <button mat-icon-button (click)="editar(p)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="warn" (click)="deletar(p)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
