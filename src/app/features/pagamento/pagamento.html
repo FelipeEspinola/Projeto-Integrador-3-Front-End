@@ -1,51 +1,56 @@
-<div class="container mt-5">
+<div class="pagamento-container">
 
-  <h2 class="mb-4">💳 Pagamento</h2>
- 
-  <mat-card class="p-4">
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="assets/imagens/logo.png" alt="Logo">
+  </div>
 
-    <h3 class="mb-3">Escolha a forma de pagamento:</h3>
+  <!-- TÍTULO -->
+  <h1 class="titulo">Como você gostaria de pagar?</h1>
 
-    <div class="d-flex flex-column gap-3">
+  <!-- OPÇÕES -->
+  <div class="opcoes">
 
-      <button
-        mat-stroked-button
-        [color]="metodoSelecionado === 'pix' ? 'primary' : ''"
-        (click)="selecionarMetodo('pix')">
-        PIX
-      </button>
+    <div
+      class="opcao"
+      [class.ativo]="metodoSelecionado === 'pix'"
+      (click)="pagar('pix')">
 
-      <button
-        mat-stroked-button
-        [color]="metodoSelecionado === 'cartao' ? 'primary' : ''"
-        (click)="selecionarMetodo('cartao')">
-        Cartão
-      </button>
-
-      <button
-        mat-stroked-button
-        [color]="metodoSelecionado === 'dinheiro' ? 'primary' : ''"
-        (click)="selecionarMetodo('dinheiro')">
-        Dinheiro
-      </button>
-
+      <span class="icone">🔶</span>
+      <span class="texto">Pix</span>
     </div>
 
-    <div class="mt-4 d-flex justify-content-between">
+    <div
+      class="opcao"
+      [class.ativo]="metodoSelecionado === 'cartao'"
+      (click)="pagar('cartao')">
 
-      <button mat-stroked-button routerLink="/sacola">
-        Voltar
-      </button>
-
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="finalizarPedido()">
-        Finalizar Pedido
-      </button>
-
+      <span class="icone">💳</span>
+      <span class="texto">Cartão</span>
     </div>
 
-  </mat-card>
+    <div
+      class="opcao"
+      [class.ativo]="metodoSelecionado === 'dinheiro'"
+      (click)="pagar('dinheiro')">
+
+      <span class="icone">💰</span>
+      <span class="texto">Dinheiro</span>
+    </div>
+
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="acoes">
+
+    <button class="btn-voltar" routerLink="/sacola">
+      ← Voltar
+    </button>
+
+    <button class="btn-cancelar" (click)="cancelarPedido()">
+      ✖ Cancelar Pedido
+    </button>
+
+  </div>
 
 </div>

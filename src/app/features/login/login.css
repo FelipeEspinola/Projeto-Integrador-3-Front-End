@@ -1,0 +1,89 @@
+.admin-container {
+  height: 100vh;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LOGO SUPERIOR */
+.logo-top {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  width: 180px;
+}
+
+/* CAIXA CENTRAL */
+.login-box {
+  background: #d9d9d9;
+  padding: 40px 60px;
+  border-radius: 8px;
+  text-align: center;
+  width: 500px;
+}
+
+/* LOGO DENTRO */
+.logo-center {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+/* CAMPOS */
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  width: 100px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.input-custom {
+  flex: 1;
+  height: 40px;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 0 10px;
+  background: transparent;
+}
+
+/* BOTÃO LOGIN */
+.btn-login {
+  background: black;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* ESQUECEU SENHA */
+.forgot {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.forgot span {
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* BOTÃO VOLTAR */
+.btn-voltar {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  border: 3px solid orange;
+  background: transparent;
+  color: orange;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+}

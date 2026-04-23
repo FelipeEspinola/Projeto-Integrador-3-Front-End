@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-// Material
+// Material (pode manter ou remover depois)
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -29,30 +29,39 @@ export class Pagamento {
     private router: Router
   ) {}
 
-  selecionarMetodo(metodo: string) {
+  pagar(metodo: string) {
     this.metodoSelecionado = metodo;
-  }
 
-  finalizarPedido() {
-    if (!this.metodoSelecionado) {
-      alert('Selecione uma forma de pagamento');
-      return;
-    }
+    // pequeno delay pra dar feedback visual
+    setTimeout(() => {
 
-    // Simulação de envio para backend
-    const pedido = {
+      const pedido = {
       itens: this.cartService.getItens(),
       total: this.cartService.getTotal(),
-      metodoPagamento: this.metodoSelecionado,
+      metodoPagamento: metodo,
+      tipoPedido: localStorage.getItem('tipoPedido'), // 👈 ESSENCIAL
       data: new Date()
     };
 
-    console.log('Pedido finalizado:', pedido);
+      console.log('Pedido finalizado:', pedido);
 
-    // Limpa carrinho
-    this.cartService.limparCarrinho();
+      // limpa carrinho
+      this.cartService.limparCarrinho();
 
-    // Redireciona para sucesso
-    this.router.navigate(['/sucesso']);
+      // redireciona
+      this.router.navigate(['/sucesso'], {
+      state: { pedido }
+    });
+
+    }, 300);
+  }
+
+  cancelarPedido() {
+    const confirmar = confirm('Deseja cancelar o pedido?');
+
+    if (confirmar) {
+      this.cartService.limparCarrinho();
+      this.router.navigate(['/']);
+    }
   }
 }

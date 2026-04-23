@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -23,33 +23,41 @@ import { CartService } from '../../core/services/cart';
   templateUrl: './sacola.html',
   styleUrls: ['./sacola.css']
 })
-export class Sacola {
+export class Sacola implements OnInit {
 
   itens: any[] = [];
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService) {}
+
+  ngOnInit() {
+    this.carregar();
+  }
+
+  carregar() {
     this.itens = this.cartService.getItens();
   }
 
   aumentar(id: number) {
-  this.cartService.alterarQuantidade(id, 1);
-  this.itens = this.cartService.getItens();
+    this.cartService.alterarQuantidade(id, 1);
+    this.carregar();
   }
 
   diminuir(id: number) {
     this.cartService.alterarQuantidade(id, -1);
+    this.carregar();
   }
 
   remover(id: number) {
     this.cartService.removerItem(id);
-  }
-
-  get total() {
-    return this.cartService.getTotal();
+    this.carregar();
   }
 
   limpar() {
     this.cartService.limparCarrinho();
-    this.itens = [];
+    this.carregar();
+  }
+
+  get total() {
+    return this.cartService.getTotal();
   }
 }

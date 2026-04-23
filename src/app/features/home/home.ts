@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 // Material
 import { MatCardModule } from '@angular/material/card';
 
-// Bootstrap + Angular
+// Angular
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -22,7 +22,7 @@ export class Home {
   constructor(private router: Router) {}
 
   comerAqui() {
-    localStorage.setItem('tipoPedido', 'local');
+    localStorage.setItem('tipoPedido', 'balcao'); // 👈 corrigido
     this.router.navigate(['/menu']);
   }
 

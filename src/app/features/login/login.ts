@@ -41,4 +41,9 @@ export class Login {
       alert('Login inválido');
     }
   }
+
+  // ✅ MÉTODO DO BOTÃO VOLTAR
+  voltar() {
+    this.router.navigate(['/']);
+  }
 }

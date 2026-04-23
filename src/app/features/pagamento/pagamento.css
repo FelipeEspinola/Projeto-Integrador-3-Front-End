@@ -1,4 +1,102 @@
-mat-card {
-  max-width: 500px;
-  margin: auto;
+.pagamento-container {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding: 30px;
+  text-align: center;
+}
+
+/* LOGO */
+.logo img {
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+/* TÍTULO */
+.titulo {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 40px 0;
+}
+
+/* OPÇÕES */
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* BOTÃO DE OPÇÃO */
+.opcao {
+  width: 500px;
+  padding: 20px;
+  border-radius: 50px;
+  border: 4px solid #F5800D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #F5800D;
+  cursor: pointer;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.opcao:hover {
+  background: #fff3e6;
+}
+
+/* ATIVO */
+.opcao.ativo {
+  background: #F5800D;
+  color: white;
+}
+
+/* ÍCONE */
+.icone {
+  font-size: 30px;
+}
+
+/* AÇÕES */
+.acoes {
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+/* BOTÕES BASE */
+.btn-voltar,
+.btn-cancelar,
+.btn-finalizar {
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 18px;
+  border: 3px solid #F5800D;
+  cursor: pointer;
+}
+
+/* VOLTAR */
+.btn-voltar {
+  background: transparent;
+  color: #F5800D;
+}
+
+/* CANCELAR */
+.btn-cancelar {
+  background: transparent;
+  color: #F5800D;
+}
+
+/* FINALIZAR (DESTAQUE) */
+.btn-finalizar {
+  background: #F5800D;
+  color: white;
+  font-weight: bold;
 }

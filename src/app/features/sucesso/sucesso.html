@@ -1,9 +1,32 @@
-<div class="container text-center mt-5">
+<div class="sucesso-container">
 
-  <h1>✅ Pedido realizado!</h1>
-  <p>Seu pedido foi enviado para a cozinha 🍔</p>
+  <h1 class="titulo">🎉 Pedido Realizado!</h1>
 
-  <button mat-raised-button color="primary" routerLink="/">
+  <div class="card">
+
+    <h2>Pedido #{{ numeroPedido }}</h2>
+
+    <p><strong>Tipo:</strong>
+  {{ pedido?.tipoPedido === 'balcao' ? 'Comer aqui' : 'Para viagem' }}
+</p>
+
+    <p><strong>Pagamento:</strong> {{ pedido?.metodoPagamento }}</p>
+
+    <p><strong>Total Pago:</strong> R$ {{ pedido?.total | number:'1.2-2' }} </p>
+
+    
+
+    <div class="itens">
+      <h3>Itens:</h3>
+
+      <div *ngFor="let item of pedido?.itens">
+        {{ item.produtos_nome }} x{{ item.quantidade }}
+      </div>
+    </div>
+
+  </div>
+
+  <button class="btn-home" (click)="voltarInicio()">
     Voltar ao início
   </button>
 

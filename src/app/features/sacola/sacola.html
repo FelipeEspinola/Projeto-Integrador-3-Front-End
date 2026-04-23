@@ -1,6 +1,21 @@
 <div class="sacola-container">
 
-  <h1 class="titulo">🧺 Sacola</h1>
+  <!-- TOPO -->
+  <div class="topo">
+
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="assets/imagens/logo.png" alt="Logo">
+    </div>
+
+    <!-- TOTAL -->
+    <div class="total-topo">
+      Total: <strong>R$ {{ total | number:'1.2-2' }}</strong>
+    </div>
+
+  </div>
+
+  <h1 class="titulo"><img src="assets\imagens\SacolaIcon.png" class="SacolaIcon"> Sacola</h1>
 
   <!-- LISTA -->
   <div *ngIf="itens.length > 0; else vazio">
@@ -37,28 +52,32 @@
 
     </div>
 
-    <!-- AÇÕES -->
-    <div class="acoes">
-
-      <button class="btn-voltar" routerLink="/menu">
-        ← Voltar
-      </button>
-
-      <button class="btn-cancelar" (click)="limpar()">
-        ✖ Cancelar Pedido
-      </button>
-
-      <button class="btn-pagar" routerLink="/pagamento">
-        💰 Pagar
-      </button>
-
-    </div>
-
   </div>
 
-  <!-- VAZIO -->
+  <!-- SACOLA VAZIA -->
   <ng-template #vazio>
     <p>Sua sacola está vazia 😢</p>
   </ng-template>
+
+  <!-- AÇÕES (SEMPRE VISÍVEL) -->
+  <div class="acoes">
+
+    <button class="btn-voltar" routerLink="/menu">
+      ← Voltar
+    </button>
+
+    <button *ngIf="itens.length > 0"
+            class="btn-cancelar"
+            (click)="limpar()">
+      ✖ Cancelar Pedido
+    </button>
+
+    <button *ngIf="itens.length > 0"
+            class="btn-pagar"
+            routerLink="/pagamento">
+      💰 Pagar
+    </button>
+
+  </div>
 
 </div>

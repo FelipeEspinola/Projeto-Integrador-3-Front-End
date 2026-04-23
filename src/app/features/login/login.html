@@ -1,21 +1,37 @@
-<div class="container mt-5">
+<div class="admin-container">
 
-  <mat-card class="p-4">
+  <!-- LOGO TOPO -->
+  <img src="assets/imagens/logo.png" class="logo-top">
 
-    <h2>Admin Login</h2>
+  <!-- CARD LOGIN -->
+  <div class="login-box">
 
-    <mat-form-field class="w-100">
-      <input matInput placeholder="Usuário" [(ngModel)]="usuario">
-    </mat-form-field>
+    <img src="assets/imagens/logo.png" class="logo-center">
 
-    <mat-form-field class="w-100">
-      <input matInput type="password" placeholder="Senha" [(ngModel)]="senha">
-    </mat-form-field>
+    <div class="form-group">
+      <label>LOGIN:</label>
+      <input matInput [(ngModel)]="usuario" class="input-custom">
+    </div>
 
-    <button mat-raised-button color="primary" (click)="entrar()">
-      Entrar
+    <div class="form-group">
+      <label>SENHA:</label>
+      <input matInput type="password" [(ngModel)]="senha" class="input-custom">
+    </div>
+
+    <button class="btn-login" (click)="entrar()">
+      Iniciar Seção
     </button>
 
-  </mat-card>
+    <p class="forgot">
+      Esqueceu a senha?
+      <span>Clique aqui</span>
+    </p>
+
+  </div>
+
+  <!-- BOTÃO VOLTAR -->
+  <button class="btn-voltar" (click)="voltar()">
+  ← Voltar
+</button>
 
 </div>

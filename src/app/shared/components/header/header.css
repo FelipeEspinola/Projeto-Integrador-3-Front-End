@@ -4,10 +4,15 @@
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
+  margin-top: 10px;
 }
 
 .logo {
   height: 150px;
+}
+
+.sacola {
+  height: 100px;
 }
 
 .cart-btn {
