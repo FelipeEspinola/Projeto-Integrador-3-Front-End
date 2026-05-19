@@ -42,7 +42,7 @@ export class Login {
     }
   }
 
-  // ✅ MÉTODO DO BOTÃO VOLTAR
+  //  MÉTODO DO BOTÃO VOLTAR
   voltar() {
     this.router.navigate(['/']);
   }

@@ -6,13 +6,13 @@ import { Produto } from '../../models/produto';
 })
 export class ProductService {
 
-  private produtos: Produto[] = JSON.parse(localStorage.getItem('produtos') || '[]');
+  private produtos: Produto[] = JSON.parse(sessionStorage.getItem('produtos') || '[]');
 
   getAll(): Produto[] {
     return this.produtos;
   }
 
-  // 🔥 opcional (muito útil)
+  //  opcional (muito útil)
   getAtivosPorCategoria(categoriaId: number) {
   return this.produtos.filter(p =>
     p.status === 1 &&
@@ -38,7 +38,7 @@ export class ProductService {
     this.salvar();
   }
 
-  // ✅ SOFT DELETE (CORRETO)
+  //  SOFT DELETE (CORRETO)
   delete(id: number) {
     this.produtos = this.produtos.map(p =>
       p.produtos_id === id
@@ -50,7 +50,7 @@ export class ProductService {
   }
 
   private salvar() {
-    localStorage.setItem('produtos', JSON.stringify(this.produtos));
+    sessionStorage.setItem('produtos', JSON.stringify(this.produtos));
   }
 
 }

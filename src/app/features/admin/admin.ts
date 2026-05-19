@@ -33,22 +33,22 @@ export class Admin {
     this.carregar();
   }
 
-  // 🔄 Carrega produtos
+  //  Carrega produtos
   carregar() {
     this.produtos = this.service.getAll();
   }
 
-  // ➕ Novo produto
+  //  Novo produto
   novo() {
     this.router.navigate(['/admin/novo']);
   }
 
-  // ✏️ Editar
+  //  Editar
   editar(produto: any) {
     this.router.navigate(['/admin/novo'], { state: produto });
   }
 
-  // 🗑️ Soft delete
+  //  Soft delete
   deletar(produto: any) {
     const confirmar = confirm(`Deseja deletar "${produto.produtos_nome}"?`);
     if (!confirmar) return;
@@ -57,13 +57,13 @@ export class Admin {
     this.carregar();
   }
 
-  // 🔐 Logout
+  //  Logout
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);
   }
 
-  // 📊 Texto do status
+  //  Texto do status
   getStatusTexto(status: number): string {
     switch (status) {
       case 1: return 'Ativo';
@@ -73,7 +73,7 @@ export class Admin {
     }
   }
 
-  // 🎨 Classe CSS do status
+  //  Classe CSS do status
   getStatusClass(status: number): string {
     switch (status) {
       case 1: return 'ativo';

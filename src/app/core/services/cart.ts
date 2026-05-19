@@ -9,7 +9,7 @@ export class CartService {
   private itens: any[] = [];
 
   constructor() {
-    const dados = localStorage.getItem('sacola');
+    const dados = sessionStorage.getItem('sacola');
     this.itens = dados ? JSON.parse(dados) : [];
   }
 
@@ -53,10 +53,10 @@ export class CartService {
 
   limparCarrinho() {
     this.itens = [];
-    localStorage.removeItem('sacola');
+    sessionStorage.removeItem('sacola');
   }
 
   private salvar() {
-    localStorage.setItem('sacola', JSON.stringify(this.itens));
+    sessionStorage.setItem('sacola', JSON.stringify(this.itens));
   }
 }

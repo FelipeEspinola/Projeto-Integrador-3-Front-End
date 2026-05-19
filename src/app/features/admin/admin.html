@@ -30,7 +30,7 @@
           {{ p.descricao }}
         </p>
 
-        <p><strong>Preço:</strong> R$ {{ p.preco }}</p>
+        <p><strong>Preço:</strong> R$ {{ p.preco  | number:'1.2-2' }}</p>
 
         <p><strong>Categoria:</strong> {{ p.categoria_id }}</p>
 
@@ -42,7 +42,7 @@
         </p>
 
         <p *ngIf="p.promocao" class="promo">
-          🔥 Em promoção
+          🔥 Em promoção 
         </p>
 
       </div>

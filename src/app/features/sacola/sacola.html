@@ -34,7 +34,7 @@
       <!-- DIREITA -->
       <div class="item-acoes">
 
-        <span class="preco">R$ {{ item.preco }}</span>
+        <span class="preco">R$ {{ item.preco  | number:'1.2-2' }}</span>
 
         <div class="quantidade">
           <button class="btn-qtd" (click)="diminuir(item.produtos_id)">−</button>
@@ -45,7 +45,7 @@
         </div>
 
         <button class="btn-delete" (click)="remover(item.produtos_id)">
-          🗑
+          <mat-icon>delete</mat-icon>
         </button>
 
       </div>
