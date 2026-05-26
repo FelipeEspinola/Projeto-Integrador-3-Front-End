@@ -1,24 +1,73 @@
+/* HEADER FIXO */
 .header {
   background-color: var(--primary);
   color: white;
+
   display: flex;
+  align-items: center;
   justify-content: space-between;
+
   padding: 0 20px;
-  margin-top: 10px;
+  height: 130px;
+  
 }
 
+/* LOGO */
 .logo {
   height: 150px;
+  object-fit: contain;
 }
 
+/* SACOLA */
 .sacola {
   height: 100px;
+  object-fit: contain;
 }
 
+/* BOTÃO */
 .cart-btn {
   background: white;
   border: none;
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .logo {
+    height: 150px;
+  }
+
+  .sacola {
+    height: 100px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .header {
+    height: 130px;
+    padding: 0 10px;
+  }
+
+  .logo {
+    height: 150px;
+  }
+
+  .sacola {
+    height: 100px;
+  }
+
+  .cart-btn {
+    padding: 8px;
+  }
 }

@@ -25,16 +25,16 @@
 
     <!-- PREÇO -->
     <mat-form-field class="w-100 custom-field">
-      <mat-label>Preço</mat-label>
-      <input 
-          matInput 
-          mask="separator,2"
-          thousandSeparator=","
-          decimalMarker=","
-          prefix="R$ "
-          placeholder="R$ 0,00"
-          [ngModel]="produto.preco"
-          (ngModelChange)="produto.preco = $event">
+    <mat-label>Preço</mat-label>
+    <input 
+        matInput 
+        mask="separator.2"
+        thousandSeparator="."
+        decimalMarker=","
+        prefix="R$ "
+        placeholder="R$ 0,00"
+        [ngModel]="produto.preco | number:'1.2-2':'pt-BR'"
+        (ngModelChange)="produto.preco = converterPreco($event)">
     </mat-form-field>
 
     <!-- IMAGEM -->

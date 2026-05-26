@@ -10,7 +10,7 @@
 
     <!-- TOTAL -->
     <div class="total-topo">
-      Total: <strong>R$ {{ total | number:'1.2-2' }}</strong>
+      Total: <strong>R$ {{ total }}</strong>
     </div>
 
   </div>
@@ -34,7 +34,7 @@
       <!-- DIREITA -->
       <div class="item-acoes">
 
-        <span class="preco">R$ {{ item.preco  | number:'1.2-2' }}</span>
+        <span class="preco">R$ {{ item.preco }}</span>
 
         <div class="quantidade">
           <button class="btn-qtd" (click)="diminuir(item.produtos_id)">−</button>

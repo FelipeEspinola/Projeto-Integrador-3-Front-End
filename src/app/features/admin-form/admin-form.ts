@@ -57,6 +57,26 @@ export class AdminForm {
     }
   }
 
+converterPreco(valor: any): number {
+  if (!valor) return 0;
+
+  // Se já for número, retorna direto
+  if (typeof valor === 'number') {
+    return valor;
+  }
+
+  // Remove tudo que não for número ou vírgula
+  let limpo = valor
+    .toString()
+    .replace(/[^\d,]/g, '') // remove R$, espaços, etc
+    .replace(/\./g, '')     // remove milhar
+    .replace(',', '.');     // decimal
+
+  const numero = Number(limpo);
+
+  return isNaN(numero) ? 0 : numero;
+}
+
 
   salvar() {
     if (this.editando) {

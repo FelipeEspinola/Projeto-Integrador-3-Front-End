@@ -1,21 +1,32 @@
+/*TRAVA O SCROLL*/
+html, body {
+  height: 100%;
+  overflow: hidden !important; 
+}
+
+/* CONTAINER PRINCIPAL */
 .menu-container {
   display: flex;
   height: calc(100vh - 80px);
   background-color: var(--bg);
 }
 
-/* MENU LATERAL */
+/* MENU LATERAL FIXO */
 .menu-lateral {
   width: 260px;
   padding: 20px;
+
+  height: 100%;
+  overflow: hidden !important;
 }
 
-/* ÁREA PRODUTOS */
+/* ÁREA DE PRODUTOS */
 .produtos-area {
   flex: 1;
   padding: 20px;
-  height: 100vh;
-  overflow-y: auto;
+
+  height: 100%;
+  overflow-y: auto !important;
 }
 
 /* GRID */
@@ -23,4 +34,45 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
+}
+
+
+/* RESPONSIVIDADE */
+
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .produtos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .menu-lateral {
+    width: 260px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  html, body {
+    overflow: auto; /* libera scroll no mobile */
+  }
+
+  .menu-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .menu-lateral {
+    width: 100%;
+    height: auto;
+  }
+
+  .produtos-area {
+    height: auto;
+    overflow: visible;
+  }
+
+  .produtos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

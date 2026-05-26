@@ -6,7 +6,7 @@ import { Produto } from '../../models/produto';
 })
 export class ProductService {
 
-  private produtos: Produto[] = JSON.parse(sessionStorage.getItem('produtos') || '[]');
+  private produtos: Produto[] = JSON.parse(localStorage.getItem('produtos') || '[]');
 
   getAll(): Produto[] {
     return this.produtos;
@@ -50,7 +50,7 @@ export class ProductService {
   }
 
   private salvar() {
-    sessionStorage.setItem('produtos', JSON.stringify(this.produtos));
+    localStorage.setItem('produtos', JSON.stringify(this.produtos));
   }
 
 }

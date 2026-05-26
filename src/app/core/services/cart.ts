@@ -47,10 +47,25 @@ export class CartService {
     this.salvar();
   }
 
-  getTotal(): number {
-    return this.itens.reduce((total, i) => total + (i.preco * i.quantidade), 0);
-  }
+getTotal(): number {
+  return this.itens.reduce((total, i) => {
 
+    let preco = i.preco;
+
+    // se vier como string, converte
+    if (typeof preco === 'string') {
+      preco = Number(
+        preco
+          .replace(/[^\d,]/g, '') // remove R$, espaços etc
+          .replace(/\./g, '')     // remove milhar
+          .replace(',', '.')      // decimal
+      );
+    }
+
+    return total + (preco * i.quantidade);
+
+  }, 0);
+}
   limparCarrinho() {
     this.itens = [];
     sessionStorage.removeItem('sacola');
