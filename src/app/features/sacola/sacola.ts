@@ -60,4 +60,8 @@ export class Sacola implements OnInit {
   get total() {
     return this.cartService.getTotal();
   }
+
+  get contador(): number {
+  return this.itens.reduce((total, item) => total + item.quantidade, 0);
+  }
 }

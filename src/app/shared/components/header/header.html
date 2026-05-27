@@ -1,10 +1,17 @@
 <mat-toolbar class="header">
-  
 
   <img src="assets/imagens/logo.png" class="logo mt-4">
 
   <button class="cart-btn" routerLink="/sacola">
-    <img src="assets/imagens/Sacola.png" class="sacola mt-4">
+
+    <div class="sacola-wrapper">
+      <img src="assets/imagens/Sacola.png" class="sacola mt-4">
+
+      <span class="badge-contador">
+  {{ contador }}
+</span>
+    </div>
+
   </button>
 
 </mat-toolbar>

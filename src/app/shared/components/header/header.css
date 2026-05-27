@@ -9,7 +9,6 @@
 
   padding: 0 20px;
   height: 130px;
-  
 }
 
 /* LOGO */
@@ -35,6 +34,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* WRAPPER DA SACOLA (REFERÊNCIA) */
+.sacola-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* BADGE SOBRE A IMAGEM */
+.badge-contador {
+  position: absolute;
+  top: 70px;
+  right: 32px;
+
+  transform: translate(50%, -50%); /* ajuste fino */
+
+  background: #F5800D;
+  color: white;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  padding: 4px 8px;
+  border-radius: 50px;
+
+  min-width: 22px;
+  text-align: center;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
 /* TABLET */
@@ -69,5 +97,12 @@
 
   .cart-btn {
     padding: 8px;
+  }
+
+  .badge-contador {
+    top: 2px;
+    right: 2px;
+    font-size: 12px;
+    padding: 3px 6px;
   }
 }

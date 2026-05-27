@@ -128,3 +128,21 @@
   border-radius: 20px;
   border: 2px solid #F5800D;
 }
+
+/* TOPO DIREITA (TOTAL + CONTADOR) */
+.topo-direita {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* CONTADOR DE ITENS */
+.contador-itens {
+  font-size: 18px;
+  font-weight: bold;
+  background: #fff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 2px solid #F5800D;
+}
