@@ -35,11 +35,11 @@ import { ProductService } from '../../core/services/product';
 export class AdminForm {
 
   produto: any = {
-    produtos_nome: '',
+    nome: '',
     preco: 0,
-    imagem_url: '',
+    imagemUrl: '',
     descricao: '',
-    categoria_id: 1,
+    categoriaId: 1,
     status: 1,
   };
 
@@ -51,7 +51,7 @@ export class AdminForm {
   ) {
     const state = history.state;
 
-    if (state && state.produtos_id) {
+    if (state && state.id) {
       this.produto = state;
       this.editando = true;
     }

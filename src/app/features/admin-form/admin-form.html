@@ -14,7 +14,7 @@
     <!-- NOME -->
     <mat-form-field class="w-100 custom-field">
       <mat-label>Nome</mat-label>
-      <input matInput [(ngModel)]="produto.produtos_nome">
+      <input matInput [(ngModel)]="produto.nome">
     </mat-form-field>
 
     <!-- DESCRIÇÃO -->
@@ -40,13 +40,13 @@
     <!-- IMAGEM -->
     <mat-form-field class="w-100 custom-field">
       <mat-label>ImagemURL</mat-label>
-      <input matInput [(ngModel)]="produto.imagem_url">
+      <input matInput [(ngModel)]="produto.imagemUrl">
     </mat-form-field>
 
     <!-- CATEGORIA -->
     <mat-form-field class="w-100 custom-field">
       <mat-label>Categoria</mat-label>
-      <mat-select [(ngModel)]="produto.categoria_id">
+      <mat-select [(ngModel)]="produto.categoriaId">
 
         <mat-option class="bg-secondary-subtle" [value]="1">Ofertas</mat-option>
         <mat-option class="bg-secondary-subtle" [value]="2">Carnes</mat-option>
@@ -79,8 +79,8 @@
     </div>
 
     <!-- PREVIEW -->
-    <div class="preview" *ngIf="produto.imagem_url">
-      <img [src]="produto.imagem_url">
+    <div class="preview" *ngIf="produto.imagemUrl">
+      <img [src]="produto.imagemUrl">
     </div>
 
     <!-- BOTÕES -->

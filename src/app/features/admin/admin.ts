@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 // Angular Material
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +17,8 @@ import { AuthService } from '../../core/services/auth';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   templateUrl: './admin.html',
   styleUrls: ['./admin.css']
@@ -24,6 +26,8 @@ import { AuthService } from '../../core/services/auth';
 export class Admin {
 
   produtos: any[] = [];
+  produtosOriginais: any[] = [];
+  filtro: string = '';
 
   constructor(
     private service: ProductService,
@@ -33,37 +37,44 @@ export class Admin {
     this.carregar();
   }
 
-  //  Carrega produtos
-  carregar() {
-    this.produtos = this.service.getAll();
+ carregar() {
+    this.produtosOriginais = this.service.getAtivos();
+
+    this.produtos = [...this.produtosOriginais];
   }
 
-  //  Novo produto
+  filtrar() {
+  const termo = this.filtro.toLowerCase();
+
+  this.produtos = this.produtosOriginais.filter(p =>
+    p.status !== 3 && (
+      (p.nome && p.nome.toLowerCase().includes(termo)) ||
+      (p.descricao && p.descricao.toLowerCase().includes(termo))
+    )
+  );
+  }
+
   novo() {
     this.router.navigate(['/admin/novo']);
   }
 
-  //  Editar
   editar(produto: any) {
     this.router.navigate(['/admin/novo'], { state: produto });
   }
 
-  //  Soft delete
   deletar(produto: any) {
-    const confirmar = confirm(`Deseja deletar "${produto.produtos_nome}"?`);
+    const confirmar = confirm(`Deseja deletar "${produto.nome}"?`);
     if (!confirmar) return;
 
-    this.service.delete(produto.produtos_id);
+    this.service.delete(produto.id);
     this.carregar();
   }
 
-  //  Logout
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);
   }
 
-  //  Texto do status
   getStatusTexto(status: number): string {
     switch (status) {
       case 1: return 'Ativo';
@@ -73,7 +84,6 @@ export class Admin {
     }
   }
 
-  //  Classe CSS do status
   getStatusClass(status: number): string {
     switch (status) {
       case 1: return 'ativo';
@@ -82,5 +92,4 @@ export class Admin {
       default: return '';
     }
   }
-
 }

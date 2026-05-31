@@ -8,23 +8,29 @@ export class ProductService {
 
   private produtos: Produto[] = JSON.parse(localStorage.getItem('produtos') || '[]');
 
+  // Retorna TODOS (inclusive deletados)
   getAll(): Produto[] {
     return this.produtos;
   }
 
-  //  opcional (muito útil)
-  getAtivosPorCategoria(categoriaId: number) {
-  return this.produtos.filter(p =>
-    p.status === 1 &&
-    p.categoria_id === categoriaId
-  );
-}
+  // retorna apenas ativos (usar no admin/listas)
+  getAtivos(): Produto[] {
+    return this.produtos.filter(p => p.status !== 3);
+  }
+
+  
+  getAtivosPorCategoria(categoriaId: number): Produto[] {
+    return this.produtos.filter(p =>
+      p.status === 1 &&
+      p.categoriaId === categoriaId
+    );
+  }
 
   add(produto: Produto) {
-    produto.produtos_id = Date.now();
+    produto.id = Date.now();
 
-    // padrão seguro
-    produto.status = produto.status || 1;
+    // garante status padrão
+    produto.status = produto.status ?? 1;
 
     this.produtos.push(produto);
     this.salvar();
@@ -32,17 +38,28 @@ export class ProductService {
 
   update(produto: Produto) {
     this.produtos = this.produtos.map(p =>
-      p.produtos_id === produto.produtos_id ? produto : p
+      p.id === produto.id ? produto : p
     );
 
     this.salvar();
   }
 
-  //  SOFT DELETE (CORRETO)
+  // SOFT DELETE
   delete(id: number) {
     this.produtos = this.produtos.map(p =>
-      p.produtos_id === id
+      p.id === id
         ? { ...p, status: 3 }
+        : p
+    );
+
+    this.salvar();
+  }
+
+  // Restaurar produto deletado
+  restore(id: number) {
+    this.produtos = this.produtos.map(p =>
+      p.id === id
+        ? { ...p, status: 1 }
         : p
     );
 
@@ -52,5 +69,4 @@ export class ProductService {
   private salvar() {
     localStorage.setItem('produtos', JSON.stringify(this.produtos));
   }
-
 }

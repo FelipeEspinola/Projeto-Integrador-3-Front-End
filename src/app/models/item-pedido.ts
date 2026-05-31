@@ -1,6 +1,6 @@
 export interface ItemPedido {
-  produtos_id: number;
+  produtoId: number;
   quantidade: number;
-  preco_unitario: number;
+  precoUnitario: number;
   subtotal: number;
 }

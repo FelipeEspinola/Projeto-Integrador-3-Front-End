@@ -86,3 +86,22 @@
   border-radius: 30px !important;
   margin-right: 10px;
 }
+
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-filtro {
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 30px;
+  border: 2px solid #f57c00;
+  outline: none;
+  font-size: 14px;
+}
+
+.input-filtro:focus {
+  border-color: #ef6c00;
+}

@@ -2,28 +2,33 @@
 
   <h1 class="titulo">🎉 Pedido Realizado!</h1>
 
-  <div class="card">
+  <div class="card" *ngIf="pedido">
 
     <h2>Pedido #{{ numeroPedido }}</h2>
 
     <p><strong>Tipo:</strong>
-  {{ pedido?.tipoPedido === 'balcao' ? 'Comer aqui' : 'Para viagem' }}
-</p>
+      {{ pedido.tipoPedido === 'balcao' ? 'Comer aqui' : 'Para viagem' }}
+    </p>
 
-    <p><strong>Pagamento:</strong> {{ pedido?.metodoPagamento }}</p>
+    <p><strong>Pagamento:</strong> {{ pedido.metodoPagamento }}</p>
 
-    <p><strong>Total Pago:</strong> R$ {{ pedido?.total | number:'1.2-2' }} </p>
-
-    
+    <p>
+      <strong>Total Pago:</strong>
+      R$ {{ pedido.total | number:'1.2-2' }}
+    </p>
 
     <div class="itens">
       <h3>Itens:</h3>
 
-      <div *ngFor="let item of pedido?.itens">
-        {{ item.produtos_nome }} x{{ item.quantidade }}
+      <div *ngFor="let item of pedido.itens">
+        {{ item.nome }} x{{ item.quantidade }}
       </div>
     </div>
 
+  </div>
+
+  <div *ngIf="!pedido">
+    <p>Nenhum pedido encontrado 😢</p>
   </div>
 
   <button class="btn-home" (click)="voltarInicio()">
