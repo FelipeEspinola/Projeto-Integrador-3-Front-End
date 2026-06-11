@@ -45,10 +45,6 @@
   transition: 0.2s;
 }
 
-.opcao:hover {
-  background: #fff3e6;
-}
-
 /* ATIVO */
 .opcao.ativo {
   background: #F5800D;
