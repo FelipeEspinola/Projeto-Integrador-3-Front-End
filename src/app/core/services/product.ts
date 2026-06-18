@@ -135,11 +135,11 @@ private payloadComStatus(produto: Produto, status: number): any {
   }
 
 inativar(produto: Produto): Observable<any> {
-  return this.alterarStatus(produto, 0);
+  return this.alterarStatus(produto, -1);
 }
 
 restore(produto: Produto): Observable<any> {
-  return this.alterarStatus(produto, 1);
+  return this.alterarStatus(produto, -1);
 }
  
 }
