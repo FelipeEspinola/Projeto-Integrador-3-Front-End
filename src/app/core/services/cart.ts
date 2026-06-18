@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Produto } from '../../models/produto';
+import { parseMoeda } from '../../shared/utils/money';
 
 @Injectable({
   providedIn: 'root'
@@ -56,20 +57,8 @@ export class CartService {
 
   getTotal(): number {
     return this.itens.reduce((total, i) => {
-
-      let preco = i.preco;
-
-      if (typeof preco === 'string') {
-        preco = Number(
-          preco
-            .replace(/[^\d,]/g, '')
-            .replace(/\./g, '')
-            .replace(',', '.')
-        );
-      }
-
+      const preco = parseMoeda(i.preco);
       return total + (preco * i.quantidade);
-
     }, 0);
   }
 

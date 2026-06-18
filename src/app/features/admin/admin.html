@@ -11,7 +11,7 @@
         placeholder="Buscar produto..."
         class="input-filtro"
         [(ngModel)]="filtro"
-        (ngModelChange)="filtrar()"
+        (input)="filtrar()"
       />
 
       <button mat-raised-button color="primary" class="btn-produto" (click)="novo()">
@@ -25,11 +25,17 @@
     </div>
   </div>
 
-  <div class="lista">
+  <!-- LOADING -->
+  <div *ngIf="carregando" class="loading">
+    Carregando produtos...
+  </div>
+
+  <!-- LISTA -->
+  <div class="lista" *ngIf="!carregando && produtos.length > 0">
 
     <div class="card-produto" *ngFor="let p of produtos">
 
-      <img [src]="p.imagemUrl" alt="Produto">
+      <img [src]="p.imagemUrl || 'assets/imagens/sem-imagem.png'" alt="Produto">
 
       <div class="info">
 
@@ -39,26 +45,25 @@
           {{ p.descricao }}
         </p>
 
-        <p><strong>Preço:</strong> R$ {{ p.preco }}</p>
+        <p>
+          <strong>Preço:</strong> 
+          {{ p.preco | currency:'BRL':'symbol':'1.2-2' }}
+        </p>
 
         <p><strong>Categoria:</strong> {{ p.categoriaId }}</p>
 
         <p>
           <strong>Status:</strong>
-          <span [ngClass]="getStatusClass(p.status)">
-            {{ getStatusTexto(p.status) }}
-          </span>
-        </p>
-
-        <p *ngIf="p.promocao" class="promo">
-          🔥 Em promoção 
+          <span *ngIf="p.status === 1" class="ativo">Ativo</span>
+          <span *ngIf="p.status === 0" class="inativo">Inativo</span>
+          <span *ngIf="p.status === -1" class="deletado">Deletado</span>
         </p>
 
       </div>
 
       <div class="acoes">
 
-        <button mat-icon-button (click)="editar(p)">
+        <button mat-icon-button color="primary" (click)="editar(p)">
           <mat-icon>edit</mat-icon>
         </button>
 
@@ -70,6 +75,11 @@
 
     </div>
 
+  </div>
+
+  <!-- SEM RESULTADO -->
+  <div *ngIf="!carregando && produtos.length === 0" class="sem-resultados">
+    Nenhum produto encontrado.
   </div>
 
 </div>

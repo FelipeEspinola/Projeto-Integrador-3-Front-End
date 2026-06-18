@@ -3,9 +3,10 @@
   border-radius: 20px;
   padding: 20px;
   text-align: center;
+  align-items: center;
   border: 2px solid #000;
-  width: 220px;
-  height: 260px;
+  width: 280px;
+  height: 360px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   
@@ -14,7 +15,6 @@
 .img {
   width: 120px;
   margin-bottom: 10px;
-  margin-left: 25px;
 }
 
 .nome {

@@ -14,28 +14,22 @@ export class Sucesso {
   pedido: any = null;
   numeroPedido: number = 0;
 
+  // ⚠️ O pedido (e os itens dele) já são criados na API dentro de
+  // Pagamento.pagar(). Esta tela só EXIBE a confirmação — antes ela
+  // criava o pedido de novo aqui (com um número local desencontrado
+  // do número real), duplicando o pedido e os itens no banco.
   constructor(private router: Router) {
-
     const nav = this.router.getCurrentNavigation();
-
-    // tenta pegar da navegação
     this.pedido = nav?.extras?.state?.['pedido'];
 
-    // fallback (se der F5)
     if (!this.pedido) {
       const salvo = localStorage.getItem('ultimoPedido');
       this.pedido = salvo ? JSON.parse(salvo) : null;
     } else {
-      // salva para persistência
       localStorage.setItem('ultimoPedido', JSON.stringify(this.pedido));
     }
 
-    // número do pedido (só gera se existir pedido)
-    if (this.pedido) {
-      const ultimo = Number(localStorage.getItem('numeroPedido')) || 0;
-      this.numeroPedido = ultimo + 1;
-      localStorage.setItem('numeroPedido', String(this.numeroPedido));
-    }
+    this.numeroPedido = this.pedido?.numero ?? 0;
   }
 
   voltarInicio() {

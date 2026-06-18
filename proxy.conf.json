@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://academico3.rj.senac.br/20261prjint3manha-lanchonete/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-// Material (pode manter ou remover depois)
+// Material
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-// Service
+// Services
 import { CartService } from '../../core/services/cart';
+import { OrderService } from '../../core/services/order';
+import { ItemPedidoService } from '../../core/services/item-pedido';
+import { Pedido } from '../../models/pedido';
 
 @Component({
   selector: 'app-pagamento',
@@ -23,37 +28,96 @@ import { CartService } from '../../core/services/cart';
 export class Pagamento {
 
   metodoSelecionado: string = '';
+  processando = false;
 
   constructor(
     private cartService: CartService,
+    private orderService: OrderService,
+    private itemPedidoService: ItemPedidoService,
     private router: Router
   ) {}
 
   pagar(metodo: string) {
+    if (this.processando) return; // evita clique duplo / pedido duplicado
+
     this.metodoSelecionado = metodo;
+    this.processando = true;
 
-    // pequeno delay pra dar feedback visual
-    setTimeout(() => {
+    const itens = this.cartService.getItens();
 
-      const pedido = {
-      itens: this.cartService.getItens(),
+    const pedidoApi: Pedido = {
+      numero: Math.floor(Math.random() * 10000),
+      data: new Date().toISOString(),
       total: this.cartService.getTotal(),
-      metodoPagamento: metodo,
-      tipoPedido: localStorage.getItem('tipoPedido'), // 👈 ESSENCIAL
-      data: new Date()
+      status: 1
     };
 
-      console.log('Pedido finalizado:', pedido);
+    this.orderService.add(pedidoApi).subscribe({
+      next: (pedidoSalvo: Pedido) => {
 
-      // limpa carrinho
-      this.cartService.limparCarrinho();
+        const pedidoId = pedidoSalvo?.id;
+        const pedidoNumero = pedidoSalvo?.numero;
 
-      // redireciona
-      this.router.navigate(['/sucesso'], {
-      state: { pedido }
+        if (!pedidoId) {
+          console.error('ERRO: pedidoId não veio na resposta da API', pedidoSalvo);
+          this.processando = false;
+          alert('Erro ao finalizar pedido');
+          return;
+        }
+
+        // monta a requisição de cada item do pedido
+        const requisicoesItens = itens.map((item: any) => {
+          const preco = Number(item.preco);
+
+          const itemPedido = {
+            quantidade: Number(item.quantidade),
+            precoUnitario: preco,
+            subtotal: preco * Number(item.quantidade),
+            status: 1,
+            pedidoId: Number(pedidoId),
+            pedidoNumero: Number(pedidoNumero),
+            produtoId: Number(item.produtoId),
+            produtoNome: item.nome
+          };
+
+          return this.itemPedidoService.add(itemPedido).pipe(
+            catchError((err) => {
+              console.error('Erro item:', err, itemPedido);
+              return of(null); // não trava os outros itens se um falhar
+            })
+          );
+        });
+
+        // só navega para "sucesso" depois que TODOS os itens
+        // terminarem de ser salvos (antes disso a navegação
+        // acontecia em paralelo, sem esperar a resposta da API)
+        const todosOsItens = requisicoesItens.length ? requisicoesItens : [of(null)];
+
+        forkJoin(todosOsItens).subscribe(() => {
+          const pedidoFront = {
+            numero: pedidoNumero,
+            itens,
+            total: pedidoApi.total,
+            data: new Date(),
+            tipoPedido: localStorage.getItem('tipoPedido'),
+            metodoPagamento: metodo
+          };
+
+          this.cartService.limparCarrinho();
+          this.processando = false;
+
+          this.router.navigate(['/sucesso'], {
+            state: { pedido: pedidoFront }
+          });
+        });
+      },
+
+      error: (err) => {
+        console.error('Erro ao salvar pedido:', err);
+        this.processando = false;
+        alert('Erro ao finalizar pedido');
+      }
     });
-
-    }, 300);
   }
 
   cancelarPedido() {
