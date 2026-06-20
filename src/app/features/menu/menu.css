@@ -1,61 +1,45 @@
-/*TRAVA O SCROLL*/
 html, body {
   height: 100%;
-  overflow: hidden !important; 
+  overflow: hidden !important;
 }
 
-/* CONTAINER PRINCIPAL */
 .menu-container {
   display: flex;
   height: calc(100vh - 80px);
   background-color: var(--bg);
 }
 
-/* MENU LATERAL FIXO */
 .menu-lateral {
-  width: 260px;
-  padding: 20px;
-
+  width: clamp(180px, 22vw, 280px);
+  padding: 16px;
   height: 100%;
-  overflow: hidden !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
 }
 
-/* ÁREA DE PRODUTOS */
 .produtos-area {
   flex: 1;
-  padding: 20px;
-
+  padding: clamp(12px, 2vw, 24px);
   height: 100%;
-  overflow-y: auto !important;
+  overflow-y: auto;
 }
 
-/* GRID */
 .produtos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(14px, 2vw, 28px);
 }
 
-
-/* RESPONSIVIDADE */
-
-
-/* TABLET */
-@media (max-width: 1024px) {
-  .produtos-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .menu-lateral {
-    width: 260px;
-  }
+/* PAISAGEM com tela curta (totem deitado) */
+@media (orientation: landscape) and (max-height: 600px) {
+  .menu-lateral { width: 160px; padding: 8px; }
+  .produtos-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  html, body {
-    overflow: auto; /* libera scroll no mobile */
-  }
+/* TABLET / TOTEM MÉDIO PORTRAIT */
+@media (orientation: portrait) and (max-width: 900px) {
+  html, body { overflow: auto !important; }
 
   .menu-container {
     flex-direction: column;
@@ -65,6 +49,8 @@ html, body {
   .menu-lateral {
     width: 100%;
     height: auto;
+    overflow: visible;
+    padding: 12px;
   }
 
   .produtos-area {
@@ -73,6 +59,12 @@ html, body {
   }
 
   .produtos-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
   }
+}
+
+/* MOBILE PEQUENO */
+@media (max-width: 480px) {
+  .produtos-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }

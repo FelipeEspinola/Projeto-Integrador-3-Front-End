@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-// Material
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 
-// Service
 import { AuthService } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
+    CommonModule,   // ← necessário para *ngIf funcionar
     FormsModule,
     MatCardModule,
     MatButtonModule,
@@ -24,8 +24,10 @@ import { AuthService } from '../../core/services/auth';
 })
 export class Login {
 
-  usuario = '';
-  senha = '';
+  usuario    = '';
+  senha      = '';
+  carregando = false;
+  erro       = '';
 
   constructor(
     private auth: AuthService,
@@ -33,16 +35,24 @@ export class Login {
   ) {}
 
   entrar() {
-    const ok = this.auth.login(this.usuario, this.senha);
-
-    if (ok) {
-      this.router.navigate(['/admin']);
-    } else {
-      alert('Login inválido');
+    if (!this.usuario || !this.senha) {
+      this.erro = 'Preencha usuário e senha.';
+      return;
     }
+
+    this.carregando = true;
+    this.erro = '';
+
+    this.auth.login(this.usuario, this.senha).then(ok => {
+      this.carregando = false;
+      if (ok) {
+        this.router.navigate(['/admin']);
+      } else {
+        this.erro = 'Usuário ou senha inválidos.';
+      }
+    });
   }
 
-  //  MÉTODO DO BOTÃO VOLTAR
   voltar() {
     this.router.navigate(['/']);
   }
