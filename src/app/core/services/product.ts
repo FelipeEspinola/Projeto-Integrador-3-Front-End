@@ -114,7 +114,7 @@ export class ProductService {
 // Antes tinha sua própria cópia da montagem do payload, idêntica à de
 // alterarStatus(), só que duplicada.
 delete(produto: Produto): Observable<any> {
-  return this.inativar(produto);
+  return this.alterarStatus(produto, -1);
 }
 
 private payloadComStatus(produto: Produto, status: number): any {

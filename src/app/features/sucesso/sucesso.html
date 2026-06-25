@@ -2,28 +2,46 @@
 
   <h1 class="titulo">🎉 Pedido Realizado!</h1>
 
-  <div class="card" *ngIf="pedido">
+  <div class="cupom" *ngIf="pedido">
 
-    <h2>Pedido #{{ numeroPedido }}</h2>
+    <!-- NÚMERO DESTAQUE -->
+    <div class="cupom-numero">
+      <span class="label-pedido">Pedido</span>
+      <span class="numero-grande">#{{ numeroCupom }}</span>
+    </div>
 
+    <hr class="divisor">
+
+    <!-- INFOS GERAIS -->
     <p><strong>Tipo:</strong>
       {{ pedido.tipoPedido === 'balcao' ? 'Comer aqui' : 'Para viagem' }}
     </p>
-
     <p><strong>Pagamento:</strong> {{ pedido.metodoPagamento }}</p>
+    <p><strong>Total Pago:</strong> R$ {{ pedido.total | number:'1.2-2' }}</p>
 
-    <p>
-      <strong>Total Pago:</strong>
-      R$ {{ pedido.total | number:'1.2-2' }}
-    </p>
+    <hr class="divisor">
 
+    <!-- ITENS COM IMAGEM E DESCRIÇÃO -->
     <div class="itens">
-      <h3>Itens:</h3>
+      <h3>Itens do pedido:</h3>
 
-      <div *ngFor="let item of pedido.itens">
-        {{ item.nome }} x{{ item.quantidade }}
+      <div class="item-cupom" *ngFor="let item of pedido.itens">
+
+        <img [src]="item.imagemUrl" class="item-img" [alt]="item.nome">
+
+        <div class="item-texto">
+          <strong class="item-nome">{{ item.nome }}</strong>
+          <span class="item-qtd">x{{ item.quantidade }}</span>
+          <p class="item-desc">{{ item.descricao }}</p>
+        </div>
+
       </div>
     </div>
+
+    <hr class="divisor">
+
+    <!-- NÚMERO REAL DO PEDIDO NO BD, EM LETRAS MIÚDAS -->
+    <p class="ref-guid" *ngIf="pedidoId">Pedido nº {{ pedidoId }}</p>
 
   </div>
 

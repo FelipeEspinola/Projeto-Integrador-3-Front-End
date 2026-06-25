@@ -1,62 +1,71 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, of, switchMap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-// Material
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-// Services
 import { CartService } from '../../core/services/cart';
 import { OrderService } from '../../core/services/order';
 import { ItemPedidoService } from '../../core/services/item-pedido';
+import { PedidoNumeroService } from '../../core/services/pedido-numero';
 import { Pedido } from '../../models/pedido';
+import { parseMoeda } from '../../shared/utils/money';
 
 @Component({
   selector: 'app-pagamento',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './pagamento.html',
   styleUrls: ['./pagamento.css']
 })
 export class Pagamento {
 
-  metodoSelecionado: string = '';
+  metodoSelecionado = '';
   processando = false;
 
   constructor(
     private cartService: CartService,
     private orderService: OrderService,
     private itemPedidoService: ItemPedidoService,
+    private pedidoNumeroService: PedidoNumeroService,
     private router: Router
   ) {}
 
   pagar(metodo: string) {
-    if (this.processando) return; // evita clique duplo / pedido duplicado
+    if (this.processando) return;
 
     this.metodoSelecionado = metodo;
     this.processando = true;
 
     const itens = this.cartService.getItens();
 
+    // Número sequencial só para exibição no cupom/organização da cozinha (00001–10000)
+    const numeroCupom = this.pedidoNumeroService.proximoNumero();
+
     const pedidoApi: Pedido = {
-      numero: Math.floor(Math.random() * 10000),
+      // "numero" é NOT NULL no BD, então mandamos um valor provisório aqui
+      // (o próprio número sequencial do cupom, já é inteiro). Assim que o
+      // pedido existe e ganha um id de verdade, atualizamos numero = id.
+      numero: Number(numeroCupom),
       data: new Date().toISOString(),
       total: this.cartService.getTotal(),
       status: 1
     };
 
-    this.orderService.add(pedidoApi).subscribe({
+    this.orderService.add(pedidoApi).pipe(
+      // Assim que o pedido é criado e ganha um id, gravamos numero = id
+      switchMap((pedidoCriado: Pedido) => {
+        if (!pedidoCriado?.id) {
+          throw new Error('pedidoId não veio na resposta da API');
+        }
+        return this.orderService.update({ ...pedidoCriado, numero: pedidoCriado.id });
+      })
+    ).subscribe({
       next: (pedidoSalvo: Pedido) => {
-
-        const pedidoId = pedidoSalvo?.id;
-        const pedidoNumero = pedidoSalvo?.numero;
+        const pedidoId = pedidoSalvo?.id ?? pedidoSalvo?.numero;
 
         if (!pedidoId) {
           console.error('ERRO: pedidoId não veio na resposta da API', pedidoSalvo);
@@ -65,37 +74,32 @@ export class Pagamento {
           return;
         }
 
-        // monta a requisição de cada item do pedido
         const requisicoesItens = itens.map((item: any) => {
-          const preco = Number(item.preco);
+          const preco = parseMoeda(item.preco);
+          const qty   = Number(item.quantidade);
 
           const itemPedido = {
-            quantidade: Number(item.quantidade),
-            precoUnitario: preco,
-            subtotal: preco * Number(item.quantidade),
-            status: 1,
-            pedidoId: Number(pedidoId),
-            pedidoNumero: Number(pedidoNumero),
-            produtoId: Number(item.produtoId),
-            produtoNome: item.nome
+            quantidade:     qty,
+            precoUnitario:  preco,
+            subtotal:       preco * qty,
+            status:         1,
+            pedidoId:       Number(pedidoId),
+            pedidoNumero:   Number(pedidoId), // numero do pedido = id
+            produtoId:      Number(item.produtoId),
+            produtoNome:    item.nome
           };
 
           return this.itemPedidoService.add(itemPedido).pipe(
-            catchError((err) => {
-              console.error('Erro item:', err, itemPedido);
-              return of(null); // não trava os outros itens se um falhar
-            })
+            catchError((err) => { console.error('Erro item:', err); return of(null); })
           );
         });
 
-        // só navega para "sucesso" depois que TODOS os itens
-        // terminarem de ser salvos (antes disso a navegação
-        // acontecia em paralelo, sem esperar a resposta da API)
-        const todosOsItens = requisicoesItens.length ? requisicoesItens : [of(null)];
+        const todos = requisicoesItens.length ? requisicoesItens : [of(null)];
 
-        forkJoin(todosOsItens).subscribe(() => {
+        forkJoin(todos).subscribe(() => {
           const pedidoFront = {
-            numero: pedidoNumero,
+            pedidoId,               // = numero real gravado no BD
+            numeroCupom,            // "00042" — destaque no topo do cupom (organização da cozinha)
             itens,
             total: pedidoApi.total,
             data: new Date(),
@@ -105,15 +109,12 @@ export class Pagamento {
 
           this.cartService.limparCarrinho();
           this.processando = false;
-
-          this.router.navigate(['/sucesso'], {
-            state: { pedido: pedidoFront }
-          });
+          this.router.navigate(['/sucesso'], { state: { pedido: pedidoFront } });
         });
       },
 
       error: (err) => {
-        console.error('Erro ao salvar pedido:', err);
+        console.error('Erro ao salvar pedido:', err?.error ?? err);
         this.processando = false;
         alert('Erro ao finalizar pedido');
       }
@@ -121,9 +122,7 @@ export class Pagamento {
   }
 
   cancelarPedido() {
-    const confirmar = confirm('Deseja cancelar o pedido?');
-
-    if (confirmar) {
+    if (confirm('Deseja cancelar o pedido?')) {
       this.cartService.limparCarrinho();
       this.router.navigate(['/']);
     }

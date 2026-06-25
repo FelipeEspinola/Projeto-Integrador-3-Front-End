@@ -1,42 +1,91 @@
+/* CARD */
 .card {
   background: #F7F9D6;
   border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  align-items: center;
+  padding: 16px;
   border: 2px solid #000;
-  width: 280px;
-  height: 360px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  
-}
 
-.img {
-  width: 120px;
-  margin-bottom: 10px;
-}
+  /* Centraliza conteúdo vertical e horizontal */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-.nome {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.linha {
-  height: 2px;
-  background: black;
-  margin: 10px 0;
-}
-
-.preco span {
-  font-size: 12px;
-}
-
-.preco strong {
-  font-size: 16px;
+  /* Tamanho responsivo em vez de fixo */
+  width: 100%;
+  min-height: 240px;
 }
 
 .card:hover {
   transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.img {
+  width: clamp(72px, 45%, 120px);
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+.nome {
+  font-weight: bold;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+.descricao {
+  font-size: clamp(11px, 1vw, 13px);
+  color: #555;
+  margin: 4px 0;
+  line-height: 1.3;
+  /* limita a 2 linhas para manter o card uniforme */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.linha {
+  height: 2px;
+  width: 80%;
+  background: black;
+  margin: 8px 0;
+}
+
+.preco span   { font-size: 12px; }
+.preco strong { font-size: clamp(14px, 1.2vw, 16px); }
+
+/* ─── MODAL OVERLAY ─────────────────────────────────── */
+/* position: fixed → cobre a tela inteira independente
+   de onde o componente esteja no DOM */
+.modal-overlay {
+  position: fixed;
+  inset: 0;                         /* top/right/bottom/left: 0 */
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeIn 0.08s ease-out;
+}
+
+.modal-msg {
+  color: #F5800D;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  padding: 0 24px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

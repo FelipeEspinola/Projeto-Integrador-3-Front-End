@@ -1,80 +1,82 @@
 .sacola-container {
-  padding: 30px;
+  padding: clamp(16px, 3vw, 36px);
   background: #f5f5f5;
   min-height: 100vh;
 }
 
-/* TÍTULO */
 .titulo {
-  font-size: 36px;
+  font-size: clamp(24px, 4vw, 40px);
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* CARD */
+.SacolaIcon { height: clamp(56px, 8vw, 100px); }
+
+/* CARD DO ITEM */
 .item-card {
   background: #DDE0B8;
-  border-radius: 25px;
-  padding: 25px;
-  margin-bottom: 20px;
-
+  border-radius: 20px;
+  padding: clamp(14px, 2vw, 26px);
+  margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* ESQUERDA */
 .item-info {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
 }
 
-.produto-img {
-  width: 80px;
-}
+.produto-img { width: clamp(52px, 8vw, 88px); flex-shrink: 0; }
 
-/* DIREITA */
+.item-info h3 { font-size: clamp(14px, 1.6vw, 20px); margin: 0; }
+
 .item-acoes {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(10px, 1.5vw, 22px);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .preco {
-  font-size: 22px;
+  font-size: clamp(16px, 2vw, 24px);
   font-weight: bold;
 }
 
-/* QUANTIDADE */
 .quantidade {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .btn-qtd {
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 4vw, 44px);
+  height: clamp(32px, 4vw, 44px);
   border-radius: 50%;
   border: none;
   background: #F5800D;
   color: white;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 22px);
   cursor: pointer;
 }
 
-.qtd {
-  font-size: 24px;
-  font-weight: bold;
-}
+.qtd { font-size: clamp(18px, 2.5vw, 26px); font-weight: bold; }
 
-/* DELETE */
 .btn-delete {
   background: #F5800D;
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 10px;
   padding: 8px 12px;
   cursor: pointer;
@@ -82,28 +84,24 @@
 
 /* AÇÕES */
 .acoes {
-  margin-top: 40px;
+  margin-top: 32px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-/* BOTÕES */
-.btn-voltar,
-.btn-cancelar,
-.btn-pagar {
-  padding: 15px 25px;
+.btn-voltar, .btn-cancelar, .btn-pagar {
+  padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.5vw, 28px);
   border-radius: 30px;
-  font-size: 18px;
+  font-size: clamp(14px, 1.6vw, 20px);
   border: 3px solid #F5800D;
   background: transparent;
   color: #F5800D;
   cursor: pointer;
 }
 
-.btn-pagar {
-  background: #F5800D;
-  color: white;
-}
+.btn-pagar { background: #F5800D; color: white; }
 
 /* TOPO */
 .topo {
@@ -111,39 +109,41 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.logo img {
-  height: 150px;
-}
+.logo img { height: clamp(80px, 12vw, 160px); }
 
-.SacolaIcon {
-  height: 100px;
-}
-
-.total-topo {
-  font-size: 22px;
-  font-weight: bold;
-  background: #fff;
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: 2px solid #F5800D;
-}
-
-/* TOPO DIREITA (TOTAL + CONTADOR) */
 .topo-direita {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 8px;
 }
 
-/* CONTADOR DE ITENS */
-.contador-itens {
-  font-size: 18px;
+.total-topo, .contador-itens {
+  font-size: clamp(14px, 1.8vw, 22px);
   font-weight: bold;
   background: #fff;
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: 20px;
   border: 2px solid #F5800D;
+}
+
+/* PAISAGEM TOTEM */
+@media (orientation: landscape) and (max-height: 600px) {
+  .sacola-container { padding: 12px 20px; }
+  .titulo           { font-size: 22px; margin-bottom: 12px; }
+  .item-card        { padding: 10px 16px; margin-bottom: 10px; }
+}
+
+/* MOBILE PEQUENO — empilha esquerda/direita do card */
+@media (max-width: 520px) {
+  .item-card      { flex-direction: column; align-items: flex-start; }
+  .item-acoes     { width: 100%; justify-content: flex-start; }
+  .acoes          { flex-direction: column; }
+  .btn-voltar,
+  .btn-cancelar,
+  .btn-pagar      { width: 100%; text-align: center; }
 }

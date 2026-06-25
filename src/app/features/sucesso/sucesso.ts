@@ -12,12 +12,9 @@ import { Router } from '@angular/router';
 export class Sucesso {
 
   pedido: any = null;
-  numeroPedido: number = 0;
+  numeroCupom = '00000';
+  pedidoId: number | null = null;
 
-  // ⚠️ O pedido (e os itens dele) já são criados na API dentro de
-  // Pagamento.pagar(). Esta tela só EXIBE a confirmação — antes ela
-  // criava o pedido de novo aqui (com um número local desencontrado
-  // do número real), duplicando o pedido e os itens no banco.
   constructor(private router: Router) {
     const nav = this.router.getCurrentNavigation();
     this.pedido = nav?.extras?.state?.['pedido'];
@@ -29,7 +26,8 @@ export class Sucesso {
       localStorage.setItem('ultimoPedido', JSON.stringify(this.pedido));
     }
 
-    this.numeroPedido = this.pedido?.numero ?? 0;
+    this.numeroCupom = this.pedido?.numeroCupom ?? '00000';
+    this.pedidoId    = this.pedido?.pedidoId    ?? null;
   }
 
   voltarInicio() {
